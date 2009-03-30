@@ -19,7 +19,7 @@ post "/register" do
     flash[:error] = "Email cannot be blank"
     haml :register
   else
-    @user = User.create(:username => params[:username],
+    @user = User.create(:username => params[:username].downcase,
                         :email => params[:email],
                         :password => params[:password],
                         :fullname => params[:fullname])
@@ -44,7 +44,7 @@ post "/register" do
 end
 
 get "/profile/:username" do
-  @user = User.first(:username.eql => params[:username])
+  @user = User.first(:username.eql => params[:username].downcase)
   if @user
     @calls = @user.calls.select{|c| c.completed == true && c.cancelled == false}
     haml :profile
@@ -58,7 +58,7 @@ get "/profile/edit/:username" do
   if @user.nil?
     redirect "/profile/#{params[:username]}"
   end
-  if @user.username != params[:username]
+  if @user.username != params[:username].downcase
     redirect "/profile/#{params[:username]}"
   else
     @user = cur_user
@@ -71,7 +71,7 @@ post "/profile/edit/:username" do
   if @user.nil?
     redirect "/profile/#{params[:username]}"
   end
-  if @user.username != params[:username]
+  if @user.username != params[:username].downcase
     redirect "/profile/#{params[:username]}"
   else
     @user = cur_user
