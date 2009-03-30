@@ -1,0 +1,56 @@
+#sidebar-left.span-5.append-1
+  %div.search-box.first
+    %form#zipcode{:action => "/legislators/search", :method => "get"}
+      %label Zipcode
+      %input.text{:type => "text", :name => "zipcode"}
+      %input{:type => "submit", :value => "Submit"}
+  %div.search-box
+    %form#state{:action => "/legislators/search", :method => "get"}  
+      %label State 
+      = state_select("state")
+      %input{:type => "submit", :value => "Submit"}
+  %div.search-box
+    %form#name{:action => "/legislators/search", :method => "get"}
+      %label Name
+      %input.text{:type => "text", :name => "name"}
+      %input{:type => "submit", :value => "Submit"}      
+#center.span-16.last
+  %h2 Find Legislators
+  - if @legs.empty? && @search == true
+    %p.empty No results. Try another search.
+  - elsif @legs.empty?
+    %p.empty Use the search tools on the left
+  - else 
+    #search-results
+      - if @senators.size > 0
+        %h3 Senators
+        %ul
+          - @senators.each do |senator|
+            %li
+              %div.image
+                %img{:src => "#{SiteConfig.media_base}/images/bioguide/#{senator.bioguide_id}.jpg", :height => "50px"}
+              %a{:href => "/legislator/#{senator.bioguide_id}"}= "#{senator.fullname} (#{senator.quals})"
+              %a.call_link{:href => "/call/new/#{senator.bioguide_id}"} Call Now
+              %div{:style => "clear:both"}
+      - if @reps.size > 0
+        %h3 Representatives
+        %ul
+          - @reps.each do |rep|
+            %li
+              %div.image
+                %img{:src => "#{SiteConfig.media_base}/images/bioguide/#{rep.bioguide_id}.jpg", :height => "50px"}
+              %a{:href => "/legislator/#{rep.bioguide_id}"}= "#{rep.fullname} (#{rep.quals})"
+              %a.call_link{:href => "/call/new/#{rep.bioguide_id}"} Call Now
+              %div{:style => "clear:both"}
+
+      - if @inactives.size > 0
+        %h3 Out of Office
+        %ul
+          - @inactives.each do |leg|
+            %li
+              %div.image
+                %img{:src => "#{SiteConfig.media_base}/images/bioguide/#{leg.bioguide_id}.jpg", :height => "50px"}
+              %a{:href => "/legislator/#{leg.bioguide_id}"}= "#{leg.fullname} (#{leg.quals})"              
+              %div{:style => "clear:both"}
+
+

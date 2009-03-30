@@ -1,0 +1,55 @@
+.span-16.prepend-3.append-3.last.one-col
+  %h2 Edit Your Profile
+  %form{:action => "/profile/edit/#{@user.username}", :method => "post"}
+    .box-2
+      %h3 Personal Info
+
+      %label Fullname:
+      %input.text{:type => "text", :name => "fullname", :value => @user.fullname}
+
+      %label Email: 
+      %input.text{:type => "text", :name => "email", :value => @user.email}
+    .box-2
+      %h3 Change Password
+      %label New Password:
+      %input.text{:type => "password", :name => "password", :value => ""}
+  
+      %label Confirm Password:
+      %input.text{:type => "password", :name => "password_confirm", :value => ""}
+
+    %p.submit        
+      %input.submit{:type => "submit" , :value => "Save Changes"}
+      or
+      %a{:href => "/profile/#{@user.username}"} Cancel
+  %hr
+  %form{:action => "/profile/edit/phone/add", :method => "post"}
+    .box-2
+      %h3 Edit Phones
+      - if @user.phones.size > 0
+        %ul{:style => "list-style: none"}
+          - @user.phones.each do |phone|
+            %li 
+              %span{:style => "padding-right: 10px; font-weight: bold; display: block; float: left"}= phone.numberf
+              %span{:style => "width: 90px; display: block; float: left; text-align: center"}
+                - if phone.primary
+                  (Primary)
+                - else                  
+                  %a{:href => "/profile/edit/phone/make_primary/#{phone.id}"} Make Primary
+              %span{:style => "width: 70px; display: block; float: left; text-align: center"}
+                %a{:href => "/profile/edit/phone/delete/#{phone.id}"} Delete
+              %br{:clear => "all"}
+
+    .box-2
+      %h3 Add Phone Number
+      %label{:style => "line-height: 1.3em; margin-top: 5px"}
+        Phone Number:
+        %br
+        %span{:style => "font-size: 1em; line-height: 1em; font-weight: normal; color: #ccc"}
+          (XXX-XXX-XXXX)
+      %input.text{:type => "text", :name => "phone", :style => "margin-bottom: 3px"}
+      %small 
+      %br{:clear => "both"}
+      %input.submit{:type => "submit", :value => "Submit"}
+  %p
+    %a{:href => "/profile/#{@user.username}"} Back to your profile
+

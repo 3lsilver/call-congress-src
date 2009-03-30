@@ -1,0 +1,77 @@
+.sidebar.span-5.append-1
+  %h3 User Info
+  %ul
+    %li
+      %strong Username:
+      %a{:href => "/profile/#{@call.user.username}"}= @call.user.username
+    %li 
+      %strong Calls:
+      = @call.user.calls.size
+    %li 
+      %strong Date Joined: 
+      = @call.user.created_at.ymd
+  
+  = haml :info_sidebar, :layout => false, :views_directory => "views/legislator"
+      
+#center.span-10.append-1
+
+  = haml :show, :layout => false, :views_directory => "views/calls"
+  %h3= "Notes from #{@call.user.username}"
+  - if cur_user
+    - if cur_user.username == @call.user.username
+      %a.header_link{:href => "/call/edit/#{@call.unique_id}"} Edit
+  - if @call.commentary.blank?
+    %p.empty No notes
+  - else
+    %p= @call.commentary.gsub("\n", "<br />")
+
+  %h3= "Comments (#{@call.comments.count})"
+  - if @call.comments.count == 0
+    %div
+      %p.empty No comments
+  - else
+    - @call.comments.each do |comment|
+      .comment
+        %span.username= "#{comment.user.username} (#{comment.created_at.ymd}):"
+        %span.comment_text= comment.comment.gsub("\n","<br />")
+      
+  %h3 Add A Comment
+  - if cur_user.nil?
+    %p.empty 
+      You must 
+      %a{:href => "/login"} login 
+      to post a comment
+  - else
+    %form{:action => "/call/add_comment/#{@call.unique_id}", :method => "post"}
+      %span
+        = "Logged in as: #{cur_user.username} ("
+        %a{:href => "/logout"} logout
+        = ")"
+      %br
+      %input{:type => "hidden", :name => "user_id", :value => cur_user.id}      
+      %textarea{:name => "comment"}
+      %br
+      %input{:type => "submit", :value => "Submit"}
+
+.sidebar.span-5.last
+  %a.call_link{:href => "/call/new/#{@call.legislator.bioguide_id}"}= "Call #{@call.legislator.fullname}"
+  %h3 Call Info
+  - if cur_user
+    - if @call.user.username == cur_user.username
+      %a.header_link{:href => "/call/edit/#{@call.unique_id}"} Edit
+  %ul
+    %li 
+      %strong Date:
+      = @call.created_at.ymd
+    %li 
+      %strong Tags:
+      = @call.tags.map{|t|t.name}.join(", ")
+  %h3 Share
+  %ul
+    %li 
+      %strong Link:
+      %input{:type => "text", :value => "#{SiteConfig.url_base}/call/#{@call.unique_id}", :style => "width: 130px; margin-bottom: 10px"}
+    %li 
+      %strong Download:
+      %a{:href => "#{SiteConfig.media_base}/audio/#{@call.unique_id}.mp3"} MP3
+    

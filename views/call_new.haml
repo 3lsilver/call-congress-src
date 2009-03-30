@@ -1,0 +1,74 @@
+.span-16.prepend-3.append-3.last.one-col
+  %h2 Calling Congress
+
+  - if !cur_user
+    %p 
+      You must 
+      %a{:href => "/login"} login
+      to call  
+
+  - else
+    %form#new_call{:action => "/call/place", :method => "post"}
+      - if !@leg.nil?
+
+        .box-2
+          %h3 Step 1: Choose a legislator:
+          .image{:style => "margin: 0 auto; text-align: center"}
+            %img{:src => "#{SiteConfig.media_base}/images/bioguide/#{@leg.bioguide_id}.jpg", :height => "100px"}
+            %br
+            %a{:href => "/legislator/#{@leg.bioguide_id}"}= "#{@leg.title}. #{@leg.fullname} (#{@leg.quals})"
+            
+          %input{:type => "hidden", :value => @leg.bioguide_id, :name => "bioguide_id"}
+        - if !@leg.in_office
+          .box-2
+            %p
+              = "#{@leg.fullname} is out of office. Please choose a different legislator: "
+              %a{:href => "/legislators"} Search Legislators
+        - else
+          - if can_call_now
+            .box-2
+              %h3 Step 2: Choose a phone number
+              - if @user.phones.size == 0
+                %p You haven't added any phone numbers!
+                %p 
+                  %a{:href => "/profile/edit/#{@user.username}"} Add one on your profile page
+              - else
+                %label Number:
+                %select{:name => "phone_id"}
+                  - @user.phones.each do |phone|
+                    %option{:value => phone.id}= phone.numberf
+              %br{:clear => "both"}                  
+              %input.submit{:type => "submit", :value => "Place The Call"}      
+            %br{:clear => "both"}
+
+          - else
+            .box-2
+              %h3 Try Later
+              %p Congress is closed!. Try again later (Monday - Friday, 8am - 6pm EST)
+
+
+      - else
+        - if can_call_now
+          .box-2{:style => "margin-right: 30px"}
+            %h3 Step 1: Choose a legislator:
+            %p 
+              %a{:href => "/legislators"} Search for a legislator
+              and click "Call Now"
+            
+          .box-2
+            %h3 Step 2: Choose a phone number
+            - if @user.phones.size == 0
+              %p 
+                You haven't added any phone numbers!
+                %br
+                %a{:href => "/profile/edit/#{@user.username}"} Add one on your profile page.
+            - else
+              %label Number:
+              %select{:name => "phone_id"}
+                - @user.phones.each do |phone|
+                  %option{:value => phone.id}= phone.numberf
+            %br{:clear => "both"}                
+            %input.submit{:type => "submit", :value => "Place The Call", :disabled => "disabled"}          
+        - else
+          %h3 Try Later
+          %p Congress is closed!. Try again later (Monday - Friday, 8am - 6pm EST)

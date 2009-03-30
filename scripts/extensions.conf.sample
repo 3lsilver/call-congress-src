@@ -1,0 +1,20 @@
+; This is a sample asterisk extensions.conf context. The actual one that powers CallCongress.net is very similar.
+; Make sure to coordinate the variables passed around in the extensions to the values in your adhearsion events file and your database
+; And change SIP_CONTEXT to your SIP provider (CallCongress uses voicepulse.com)
+
+[callcongress]
+
+exten => 999,1,UserEvent(NEWCALL|num1: ${num1}|uniqueid1: ${UNIQUEID}|callid: ${callid})
+exten => 999,n,Background(cc-greeting1)
+exten => 999,n,WaitExten(35)
+
+exten => 1,1,UserEvent(CALLOUT|num2: ${num2}|callid: ${callid}|uniqueid2: ${UNIQUEID})
+exten => 1,n,MixMonitor(${audiodir}${callid}.wav,b)
+exten => 1,n,Dial(SIP/+1${num2}@{SIP_CONTEXT})
+exten => 1,n,Hangup
+
+exten => 2,1,UserEvent(PRESSEDTWO)
+exten => 2,n,Hangup
+
+exten => t,1,UserEvent(TIMEOUT)
+exten => t,n,Hangup

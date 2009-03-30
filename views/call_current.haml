@@ -1,0 +1,33 @@
+%h2= "Calling #{@call.legislator.fullname}"
+
+%div.call_status.centered
+  %strong Status: 
+  %span#call_status
+
+#info.centered
+  
+
+:javascript
+  function getStatus(){
+    $.getJSON("/call/status/#{@call.unique_id}",
+      function(data, textStatus){
+        $("#call_status").html(data.status)
+        $("#info").html(data.description)        
+        if(data.status == "Dialing"){
+          $("#info").append("<p>If your phone does not ring within 30 seconds, <a href='/call/new/#{@call.legislator.bioguide_id}'>click here</a> to try the call again.</p>")
+        }
+          if(data.completed == true){
+            if(data.cancelled == false){
+              $("#info").html("<p>You are now being redirected. Wait 5 seconds or <a href='/call/edit/#{@call.unique_id}?new=true'>click here</a>.")
+              setTimeout(function(){
+                window.location = "#{SiteConfig.url_base}/call/edit/#{@call.unique_id}?new=true"
+                }, 5000)              
+            } else {
+              $("#info").html("<p>Your call was not completed. If this was a mistake, <a href='/call/new/#{@call.legislator.bioguide_id}'>click here</a> to try again.")
+            }
+          }
+      })
+  }
+  $(document).ready(function(){
+    statusInterval = setInterval(getStatus, 1000)  
+  })

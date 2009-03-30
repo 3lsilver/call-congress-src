@@ -1,0 +1,26 @@
+.sidebar.span-5.append-1
+  %h3 Looking for Calls From A Certain Legislator?
+  %p 
+    Head over to the 
+    %a{:href => "/legislators"} Legislators
+    page and search by zipcode, state or name.
+  %h3{:style => 'margin-top: 30px'} Make A Call
+  - if cur_user
+    %p
+      %a{:href => "/legislators"} Find a Legislator
+      and make a call
+  - else
+    %p
+      %a{:href => "/login"} Login
+      or
+      %a{:href => "/register"} Register
+      to make a call
+  
+#center.span-10.append-1
+  %h2 All Calls
+  = haml :call_list, :layout => false, :views_directory => "views/calls"
+
+
+.sidebar.span-5.last
+  - @path = "/calls"
+  = haml :sort_and_filter, :layout => false, :views_directory => "views/calls"

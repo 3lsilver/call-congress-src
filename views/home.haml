@@ -1,0 +1,76 @@
+#center.span-13.append-1
+  %h2{:style => "margin-bottom: 10px"} Welcome to Call Congress!
+  .welcome
+    %p
+      %strong When's the last time you talked to your Senator or Representative's office? 
+      Is there an issue you care about that Congress isn't addressing? Do you have a question about someone's position on an issue? 
+      %strong You need to Call Congress.
+    %p
+      When you use Call Congress to contact a Congressperson, 
+      %strong a recording of the call is automatically posted online for everyone to hear. 
+      Don't want the call to be recorded? You can still use the site to get contact info for your Senators and Representative.
+    %p
+      %strong So start now.
+      %a{:href => "/register"} Register for an account
+      and
+      %a{:href => "/legislators"} Find a Legislator
+      to call. It's that easy.
+
+.sidebar.span-8.last
+  #quickfind
+    %h3 Quick Legislator Search
+    %form{:action => "/legislators/search", :method => "get"}
+      %label Zipcode:
+      %input.text{:type => "text", :name => "zipcode"}
+      %input.submit{:type => "submit", :value => "Submit"}
+    %a{:href => "/legislators"} Advanced Search
+  #getstarted
+    %h3 Get Started
+    %ul
+      %li 
+        %strong Step 1: 
+        %a{:href => "/login"} Login
+        or
+        %a{:href => "/register"} Register
+        for an account
+      %li
+        %strong Step 2:
+        %a{:href => "/legislators"} Find a Legislator
+      %li
+        %strong Step 3: 
+        Click "Call Now"
+    %h3 What Does It Cost?
+    %p
+      Nothing! CallCongress.net is a completely free service &#8212; we'll never charge you for anything. However, your phone service's standard long-distance rates might apply.
+      
+
+#bottom.span-22.last
+  .block.span-10.append-1
+    %h3 Recent Calls
+    = haml :call_list, :layout => false, :views_directory => "views/calls"      
+    %a.more{:href => "/calls"} More...
+    %br{:clear => "both"}
+
+  .block.span-11.last
+    %h3{:style => "margin-bottom: 12px"} How It Works
+    %p
+      When you use CallCongress.net to call a legislator, your phone will receive a call from our phone server (effectively, a long distance number). Once you pickup, our server will make a call to the legislator's office. When they pickup, we connect the calls and record the conversation. After the call ends, you can write a brief account of the call and add descriptive tags to help others find your call. This info and the call audio are then automatically posted online for anyone to replay or download.
+    %p
+      CallCongress.net was inspired by the 
+      %a{:href => "http://sunlightfoundation.com/"} Sunlight Foundation's 
+      %a{:href => "http://sunlightlabs.com/appsforamerica/"} Apps for America contest. 
+      It uses the 
+      %a{:href => "http://services.sunlightlabs.com/api/"} Sunlight Labs API 
+      to get up-to-date info on Senators and Representatives. 
+    %p
+      This site is powered by 
+      %a{:href => "/credits"} open source software. 
+      The content on this site is licensed with 
+      %a{:href => "http://creativecommons.org/licenses/by-nc-sa/3.0/us/"} Creative Commons 3.0 
+      and the code is licensed under the 
+      %a{:href => "http://www.apache.org/licenses/LICENSE-2.0.txt"} Apache license. 
+      Check out the source code here.
+    %p 
+      Questions? Comments? Bugs? Email 
+      %a{:href => "mailto:callcongress.net@gmail.com"} callcongress.net@gmail.com
+      and let us know.

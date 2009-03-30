@@ -1,0 +1,13 @@
+### EDIT THIS FILE AND RENAME TO "settings.yaml" ###
+
+url_base: YOUR BASE URL, e.g. http://callcongress.net
+media_base: BASE DIRECTORY FOR MEDIA SERVER (for audio, pics, css, js etc...)
+sunlight_api: YOUR SUNLIGHT LABS API
+ami_host: ASTERISK SERVER IP ADDRESS
+ami_port: ASTERISK AMI PORT (usually 5038)
+ami_user: ASTERISK AMI USERNAME
+ami_pass: ASTERISK AMI PASSWORD
+audio_dir: ABSOLUTE PATH TO DIRECTORY WHERE ASTERISK WILL PLACE RECORDED AUDIO ON SERVER (pre-conversion to MP3)
+media_dir: ABSOLUTE PATH TO MEDIA SERVER - where the converted mp3 will go 
+drb_uri: DRUBY URI FOR SINATRA COMMUNICATION WITH ADHEARSION(usually druby://localhost:8888)
+drb_port: DRUBY PORT FOR ADHEARSION (usually 8888)

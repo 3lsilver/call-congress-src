@@ -1,0 +1,10 @@
+#call.centered
+  %p.call_title
+    = "#{@call.legislator.fullname}'s Office"
+
+  #call-box
+    #player-outer
+      #player
+    %script{:type => "text/javascript"}= "embed_audio('player', '#{@call.unique_id}.mp3')"    
+
+

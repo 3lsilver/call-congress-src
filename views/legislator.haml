@@ -1,0 +1,12 @@
+.sidebar.span-5.append-1
+  = haml :info_sidebar, :layout => false, :views_directory => "views/legislator"
+        
+#center.span-10.append-1
+  %h2= "Calls to #{@leg.fullname}"
+  = haml :call_list, :layout => false, :views_directory => "views/calls"
+
+.sidebar.span-5.last
+  - if @leg.in_office
+    %a.call_link{:href => "/call/new/#{@leg.bioguide_id}"}= "Call #{@leg.fullname}"
+  - @path = "/legislator/#{@leg.bioguide_id}"
+  = haml :sort_and_filter, :layout => false, :views_directory => "views/calls"

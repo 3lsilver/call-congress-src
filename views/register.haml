@@ -1,0 +1,32 @@
+.span-16.prepend-3.append-3.last.one-col
+  %h2 Register
+
+  %form{:action => "/register", :method => "post"}
+    .box-2
+      %h3 Required
+      %label Email:
+      %input.text{:type => "text", :name => "email", :value => params[:email]}
+
+      %label Username:
+      %input.text{:type => "text", :name => "username", :value => params[:username]}
+
+      %label Password:
+      %input.text{:type => "password", :name => "password", :value => params[:password]}    
+
+      %label Confirm Password:
+      %input.text{:type => "password", :name => "password_confirm", :value => params[:password_confirm]}    
+
+
+    .box-2
+      %h3 Optional
+      %label Full Name:
+      %input.text{:type => "text", :name => "fullname", :value => params[:fullname]}
+      %label{:style => "line-height: 1.3em"}
+        Phone Number:
+        %br
+        %span{:style => "font-size: .9em; color: #ccc; font-weight: bold;"}
+          (XXX-XXX-XXXX)
+      %input.text{:type => "text", :name => "phone", :value => params[:phone]}
+    %br{:clear => "all"}
+    %p.submit
+      %input.submit{:type => "submit", :value => "Submit"}

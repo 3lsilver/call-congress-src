@@ -1,0 +1,8 @@
+.DS_Store
+adhearsion/log/*
+log/*
+spec/*
+Capfile
+db/*
+public/images/bioguide/*
+scripts/apidump.csv

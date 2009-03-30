@@ -1,0 +1,54 @@
+!!! Transitional
+%html{:xmlns => "http://www.w3.org/1999/xhtml", :lang => "en"}
+  %head
+    %title= @title || SiteConfig.title
+    %link{:rel => "stylesheet", :href=> "#{SiteConfig.media_base}/css/blueprint/screen.css", :type => "text/css"}
+    %link{:rel => "stylesheet", :href=> "#{SiteConfig.media_base}/css/jquery.rating.css", :type => "text/css"}    
+    /%link{:rel => "stylesheet", :href=> "#{SiteConfig.media_base}/css/blueprint/print.css", :type => "text/css", :media => "print"}
+    /[if IE]
+      %link{:rel => "stylesheet", :href=> "#{SiteConfig.media_base}/css/blueprint/ie.css", :type => "text/css"}    
+    %link{:rel => "stylesheet", :type => "text/css", :href => "#{SiteConfig.media_base}/css/style.css"}
+    %script{:type => "text/javascript", :src => "#{SiteConfig.media_base}/js/jquery.js"}
+    %script{:type => "text/javascript", :src => "#{SiteConfig.media_base}/js/audio-player.js"}
+    %script{:type => "text/javascript", :src => "#{SiteConfig.media_base}/js/app.js"}    
+  %body
+    .container
+      #header.span-24.last
+        %h1
+          %a{:href => "/"} Call Congress
+        %ul.top
+          - if logged_in?
+            %li
+              %a{:href => "/profile/#{cur_user.username}"} Account
+            %li
+              %a{:href => "/logout"} Logout
+          - else
+            %li
+              %a{:href => "/login"} Login
+            %li
+              %a{:href => "/register"} Register
+
+
+        %ul.nav
+          %li
+            %a{:href => "/"} Home
+          %li
+            %a{:href => "/call/new"} Call Now          
+          %li
+            %a{:href => "/calls"} All Calls         
+          %li
+            %a{:href => "/legislators"} Search Legislators
+
+
+
+
+      #main.span-22.prepend-1.append-1.last
+        = haml_flash :flash, :layout => false
+
+        = yield
+    #footer.span-24.last
+      %p 
+        %a{:rel => "license", :href => "http://creativecommons.org/licenses/by-nc-sa/3.0/us/", :style => "margin-right: 20px"}
+          %img{:alt => "Creative Commons License", :src => "http://i.creativecommons.org/l/by-nc-sa/3.0/us/88x31.png"}
+        %a{:href => "http://sunlightlabs.com/appsforamerica/"}
+          %img{:alt => "Sunlight Labs Apps For America", :src => "#{SiteConfig.media_base}/images/apps-badge.jpg"}

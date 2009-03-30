@@ -1,0 +1,9 @@
+Requirements
+Adhearsion
+Asterisk Server to connect to adhearsion
+RSpec for tests
+Datamapper
+Sinatra
+Json
+Haml/Sass
+Drb

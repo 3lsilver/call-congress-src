@@ -1,0 +1,31 @@
+- if @calls.size == 0
+  %p.empty 
+    No calls. Why not 
+    %a{:href => "/call/new"} make one
+    ?
+- else
+  .call-list
+    .navigation
+      %span.results= "#{@result_string}"
+      %ul
+        - if @prev_link
+          %li 
+            %a{:href => @prev_link} Previous
+        - if @next_link
+          %li 
+            %a{:href => @next_link} Next      
+    %br{:clear => "both"}
+    %ul
+      - @calls.each do |@call|
+        = haml :list_item, :layout => false, :views_directory => "views/calls"
+      
+    .navigation
+      %span.results= "#{@result_string}"
+      %ul
+        - if @prev_page
+          %li 
+            %a{:href => @prev_link} Previous
+        - if @next_page
+          %li 
+            %a{:href => @next_link} Next      
+    %br{:clear => "both"}

@@ -1,0 +1,43 @@
+.sidebar.span-5.append-1
+  %h3= "Profile Info"
+  - if cur_user
+    - if cur_user.username == @user.username
+      %a.header_link{:href => "/profile/edit/#{@user.username}"} Edit
+  %br{:clear => "both"}
+  %ul{:style => "margin-top: -20px"}
+    %li
+      %strong Username:
+      = @user.username
+    - if cur_user
+      - if @user.phones.size > 0 && cur_user.username == @user.username
+        %li
+          %strong Email:
+          = @user.email
+    %li 
+      %strong Calls:
+      = @user.calls.size
+    %li 
+      %strong Date Joined: 
+      = @user.created_at.ymd
+    - if cur_user
+      - if @user.phones.size > 0 && cur_user.username == @user.username
+        %li
+          %strong Phone Numbers:
+          %ul
+            - @user.phones.each do |phone|
+              %li 
+                = phone.numberf
+                - if phone.primary
+                  *
+      - if cur_user.username == @user.username
+        %li  
+          %a{:href => "/profile/edit/#{@user.username}"} Change Password
+
+
+#center.span-16.last
+  - if cur_user
+    - if @user.phones.size > 0 && cur_user.username == @user.username
+      %h2 Your Calls
+  - else
+    %h2= "#{@user.username}'s Calls"
+  = haml :call_list, :layout => false, :views_directory => "views/calls"

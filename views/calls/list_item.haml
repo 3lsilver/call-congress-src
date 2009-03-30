@@ -1,0 +1,10 @@
+%li 
+  .date= "#{@call.created_at.ymd}"
+  %a{:href => "/call/#{@call.unique_id}"}= "#{@call.legislator.title}. #{@call.legislator.fullname} (#{@call.legislator.quals})"
+  %br{:clear => "both"}
+  .tags
+    Tags: 
+    = @call.tags.map{|t| t.name}.join(", ")
+  .leg_link
+    %a{:href => "/legislator/#{@call.legislator.bioguide_id}"}= "All #{@call.legislator.fullname} Calls"
+  %br{:clear => "both"}

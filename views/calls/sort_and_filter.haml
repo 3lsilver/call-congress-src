@@ -1,0 +1,55 @@
+%h3 Sort
+%ul.filter
+  - @sort_links.each do |sl|
+    %li=sl
+%br{:clear => "both"}
+
+%h3{:style => "margin-top: 20px"} Filter
+- if @params_string =~ /sort=asc/
+  %a.header_link{:href => "#{@path}?sort=asc"} Reset  
+- elsif @params_string =~ /sort=desc/
+  %a.header_link{:href => "#{@path}?sort=desc"} Reset  
+- else
+  %a.header_link{:href => "#{@path}"} Reset
+
+%h4 Calls in the last:
+%ul.filter
+  - @date_links.each do |dl|
+    %li= dl
+%br{:clear => "both"}
+    
+- if @path =~ /calls/
+
+  %h4 Party
+  %ul.filter
+    - @party_links.each do |pl|
+      %li= pl      
+  %br{:clear => "both"}      
+
+  %h4 Office
+  %ul.filter
+    - @title_links.each do |ol|
+      %li= ol
+  %br{:clear => "both"}  
+
+  %h4 Status
+  %ul.filter
+    - @status_links.each do |sl|
+      %li= sl
+  %br{:clear => "both"}
+  
+%h4 Tags
+%a.header_link{:href => no_tags_link} Reset
+%ul.filter
+  - @tag_links.each do |tl|
+    %li= tl
+%div{:style => "clear: both; margin-bottom: 10px"}
+%small
+  Click on an inactive tag to enable it or an active tag to disable it.
+%small
+  You can select multiple tags at one time.
+
+      
+
+
+

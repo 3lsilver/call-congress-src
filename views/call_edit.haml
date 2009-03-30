@@ -1,0 +1,20 @@
+.span-16.prepend-3.append-3.last.one-col
+  %h2 Editing Call
+    
+  = haml :show, :layout => false, :views_directory => "views/calls"
+  
+  %form{:action => "/call/edit/#{@call.unique_id}", :method => "post"}
+    .box-1
+      %h3 Add Notes
+      %textarea{:name => "commentary"}= @call.commentary
+    .box-1
+      %h3 Add Tags
+      %input.text{:type => "text", :name => "tags", :value => @tags}
+      %p{:style => "text-align: center; color: #999"}
+        Separated by spaces, e.g. "iraq budget public_financing"
+    .box-1
+      %p{:style => "text-align: center"}
+        %input{:type => "submit", :value => "Save"}
+        or
+        %a{:href => "/call/#{@call.unique_id}"} Cancel
+

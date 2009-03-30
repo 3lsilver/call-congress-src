@@ -1,0 +1,16 @@
+.span-16.prepend-3.append-3.last.one-col
+  %h2{:style => "text-align: center"} Login
+
+  %form#login{:action => "/login", :method => "post", :style => "margin-top: 20px"}
+    %label Username:
+    %input.text{:type => "text", :name => "username"}
+    %br{:clear => "both"}
+    %label Password:
+    %input.text{:type => "password", :name => "password"}    
+    %br{:clear => "both"}
+    %input.submit{:type => "submit", :value => "Submit"}
+    %br{:clear => "both"}    
+
+  %p{:style => "text-align: center"}
+    Don't have an account? 
+    %a{:href => "/register"} Register now

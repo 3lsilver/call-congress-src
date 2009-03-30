@@ -1,0 +1,45 @@
+%h3 Legislator Info
+%p.leg_image
+  %img{:src => "#{SiteConfig.media_base}/images/bioguide/#{@leg.bioguide_id}.jpg", :width => "125px"}
+  %br
+  %a.leg_link{:href => "/legislator/#{@leg.bioguide_id}"}= @leg.fullname
+%h4 Info
+%ul
+  %li 
+    %strong Position: 
+    = "#{@leg.title == 'Sen' ? 'Senator' : 'Representative'}"
+  %li
+    %strong Party: 
+    = "#{@leg.party == 'R' ? 'Republican' : 'Democrat'}"
+  %li
+    %strong State: 
+    = "#{@leg.state}"
+  - if @leg.title == "Rep"
+    %li
+      %strong District: 
+      = "#{@leg.district}"
+- if !@leg.in_office
+  %h4= "#{@leg.fullname} is Out of Office"
+- else
+  %h4 Contact
+  %ul
+    %li
+      %strong Phone: 
+      %a{:href => "/call/new/#{@leg.bioguide_id}"}= "#{@leg.phone}"
+    %li 
+      %strong Fax: 
+      = "#{@leg.fax}"
+    - unless @leg.email.nil?
+      %li 
+        %strong Email: 
+        %a{:href => "mailto:#{@leg.email}"}= @leg.email
+    %li 
+      %strong Address:
+      %br
+      = @leg.congress_office
+      %br
+      Washington, DC
+      - if @leg.title == "Sen"
+        20510
+      - else
+        20515
