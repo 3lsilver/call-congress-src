@@ -42,10 +42,6 @@ Requirements
 
 TODO
 ================
--- Redo Datamapper models and queries to use validations and associations
-
--- Sanitize and filter all html input/output
-
 -- Add calling campaigns:
    Allow users to create "call campaigns" with targeted legislators, talking points and a unique home page for the campaign. This is a bigger project and didn't make it into the launch but it will be a killer feature once it is implemented.
 
