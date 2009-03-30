@@ -25,14 +25,16 @@ post "/register" do
                         :fullname => params[:fullname])
     if @user.save
       session[:user_id] = @user.id
-      num = params[:phone].gsub!(/[^\d]/, "").to_i
-      @phone = Phone.create(:number => num, :user_id => @user.id)
-      if @phone.save
-        session[:user_id] = @user.id
-        redirect "/profile/#{@user.username}"
-      else
-        flash[:error] = "There was an error adding your phone. Please try again"
-        redirect "/profile/edit/#{@user.username}"
+      if params[:phone] != ""
+        num = params[:phone].gsub!(/[^\d]/, "").to_i
+        @phone = Phone.create(:number => num, :user_id => @user.id)
+        if @phone.save
+          session[:user_id] = @user.id
+          redirect "/profile/#{@user.username}"
+        else
+          flash[:error] = "There was an error adding your phone. Please try again"
+          redirect "/profile/edit/#{@user.username}"
+        end
       end
     else
       flash[:error] = "There was an error. Please try again."
